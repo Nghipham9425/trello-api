@@ -4,13 +4,14 @@ import exitHook from 'async-exit-hook'
 import { CONNECT_DB, CLOSE_DB } from './config/mongodb'
 import { env } from '~/config/environment'
 import { APIs_V1 } from '~/routes/v1'
-import { boardRoutes } from '~/routes/v1/boardRoutes'
+
 
 const START_SERVER = () => {
   const app = express()
 
+  //enable req.body
+  app.use(express.json())
   app.use('/v1', APIs_V1)
-  app.use('/v1',boardRoutes)
 
   app.listen(env.APP_PORT, env.APP_HOST, () => {
     console.log(`Hello ${env.AUTHOR}, I am running at ${ env.APP_HOST }:${ env.APP_PORT }/`)
