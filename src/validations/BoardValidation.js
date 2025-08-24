@@ -16,7 +16,7 @@ const createNew = async (req, res, next) => {
   try {
     console.log(req.body)
     await correctCondition.validateAsync(req.body, { abortEarly:false })
-    //Next o đây dùng để nếu validate hợp lệ thì cho request tới nơi tiếp theo như Controller ...
+    //Next o đây dùng để nếu validate hợp lệ thì cho request tới nơi tiếp theo như Controller ... 
     next()
   } catch (error) {
     console.log(error)
