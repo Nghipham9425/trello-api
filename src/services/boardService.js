@@ -4,7 +4,7 @@
 import { slugify } from '~/utils/formater'
 import { boardModel } from '~/models/boardModel'
 import { GET_DB } from '~/config/mongodb'
-import ApiError from '~/utils/apiError'
+import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
 const createNew = async( reqBody ) => {
   try {
