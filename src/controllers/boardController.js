@@ -24,6 +24,28 @@ const createNew = async (req, res, next) => {
   }
 }
 
+const getDetails = async (req, res, next) => {
+
+  try {
+    //id ben route
+    const boardId = req.params.id
+    // console.log('reg.params', req.params)
+
+
+    const Board = await boardSevices.getDetails(boardId)
+
+    res.status(StatusCodes.CREATED).json(Board)
+  } catch (error) {
+    next(error)
+    // res.StatusCodes(StatusCodes.INTERNAL_SERVER_ERROR).json(
+    //   {
+    //     errors: error.message
+    //   }
+    // )
+  }
+}
+
 export const boardController = {
-  createNew
+  createNew,
+  getDetails
 }
