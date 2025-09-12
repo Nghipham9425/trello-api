@@ -30,8 +30,6 @@ const getDetails = async (req, res, next) => {
     //id ben route
     const boardId = req.params.id
     // console.log('reg.params', req.params)
-
-
     const Board = await boardSevices.getDetails(boardId)
 
     res.status(StatusCodes.CREATED).json(Board)
@@ -44,8 +42,22 @@ const getDetails = async (req, res, next) => {
     // )
   }
 }
+const update = async (req, res, next) => {
+
+  try {
+    //id ben route
+    const boardId = req.params.id
+    // console.log('reg.params', req.params)
+    const updatedBoard = await boardSevices.update(boardId, req.body)
+
+    res.status(StatusCodes.CREATED).json(updatedBoard)
+  } catch (error) {
+    next(error)
+  }
+}
 
 export const boardController = {
   createNew,
-  getDetails
+  getDetails,
+  update
 }
