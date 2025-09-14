@@ -6,7 +6,7 @@ import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
 
 const createNew = async (req, res, next) => {
   const correctCondition = Joi.object({
-    boardId:Joi.string().required().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
+    // boardId:Joi.string().required().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
     title:Joi.string().required().min(3).max(50).trim().strict()
   })
   try {
@@ -19,6 +19,28 @@ const createNew = async (req, res, next) => {
   }
 }
 
+const update = async (req, res, next) => {
+  const correctCondition = Joi.object({
+    boardId:Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
+    title:Joi.string().min(3).max(50).trim().strict(),
+    cardOrderIds:Joi.array().items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
+  })
+
+  try {
+    console.log(req.body)
+    await correctCondition.validateAsync(req.body,
+      { abortEarly:false,
+        allowUnknown: true
+      }
+    )
+    next()
+    //Next o đây dùng để nếu validate hợp lệ thì cho request tới nơi tiếp theo như Controller ...
+  } catch (error) {
+    next(new ApiError(StatusCodes.UNPROCESSABLE_ENTITY, new Error(error).message))
+  }
+}
+
 export const ColumnValidation = {
-  createNew
+  createNew,
+  update
 }
