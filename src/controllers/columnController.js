@@ -11,7 +11,7 @@ const createNew = async (req, res, next) => {
 }
 const update = async (req, res, next) => {
   try {
-    const columnId = req.params.id
+    const columnId = req.body.id
     const updatedColumn = await columnSevices.update(columnId, req.body)
 
     res.status(StatusCodes.OK).json(updatedColumn)
