@@ -1,3 +1,4 @@
+import { async } from '@babel/runtime/helpers/regeneratorRuntime'
 import { StatusCodes } from 'http-status-codes'
 import { columnSevices } from '~/services/columnService'
 const createNew = async (req, res, next) => {
@@ -20,8 +21,19 @@ const update = async (req, res, next) => {
     next(error)
   }
 }
+const deleteItem = async (req, res, next) => {
+  try {
+    const columnId = req.params.id
+    const result = await columnSevices.deleteItem(columnId)
+
+    res.status(StatusCodes.OK).json(result)
+  } catch (error) {
+    next(error)
+  }
+}
 
 export const columnController = {
   createNew,
-  update
+  update,
+  deleteItem
 }
